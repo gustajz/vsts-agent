@@ -16,12 +16,17 @@ RUN apt-get update \
         netcat \
         zip
 
-RUN apt-get install \
+RUN curl https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb --output packages-microsoft-prod.deb \
+&& dpkg -i packages-microsoft-prod.deb
+
+RUN apt-get update \
+&& apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
     gnupg-agent \
     software-properties-common \
+    dotnet-sdk-5.0\
 && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
 && add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
